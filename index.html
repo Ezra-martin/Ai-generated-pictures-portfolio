@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manzi Ezra | AI Magnificent Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #00F5FF;
+            --accent-purple: #9D00FF;
+            --text: #FFFFFF;
+            --text-dim: rgba(255, 255, 255, 0.4);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero.png');
+            background-size: cover; background-position: center;
+            background-attachment: fixed; position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 15vw, 10rem);
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent), var(--accent-purple), var(--accent));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(0, 245, 255, 0.5));
+            animation: gradientMove 6s linear infinite;
+        }
+
+        @keyframes gradientMove { to { background-position: 200% center; } }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 15px;
+            color: var(--text-dim);
+            margin-top: 2rem;
+        }
+
+        .gallery-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 8rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: #fff;
+        }
+
+        /* SceneMagic Slider */
+        .scenemagic-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            margin-bottom: 12rem;
+        }
+
+        .sm-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+        }
+
+        .sm-after { background-image: url('after.png'); }
+        .sm-before { 
+            background-image: url('before.png'); 
+            width: 50%; z-index: 2; 
+            border-right: 4px solid var(--accent);
+        }
+
+        .sm-slider {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: ew-resize; z-index: 10;
+        }
+
+        /* Pure Aesthetic Grid */
+        .aesthetic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .aesthetic-item {
+            position: relative;
+            aspect-ratio: 1/1;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .aesthetic-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 30px 60px rgba(0, 245, 255, 0.1);
+        }
+
+        .aesthetic-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: 1s ease;
+        }
+
+        .aesthetic-item:hover img { transform: scale(1.1); }
+
+        footer {
+            padding: 8rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            letter-spacing: 12px;
+        }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1.5s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p>ARCHITECTURE & VISION</p>
+            <h1>MANZI EZRA</h1>
+            <p>PURE AI MAGNIFICENCE</p>
+        </div>
+    </section>
+
+    <div class="gallery-wrap">
+        
+        <div class="section-header reveal">
+            <h2>SCENEMAGIC TRANSFORMATION</h2>
+            <p>Elevating standard packshots into high-end lifestyle renders.</p>
+        </div>
+
+        <div class="scenemagic-box reveal">
+            <div class="sm-img sm-after"></div>
+            <div class="sm-img sm-before" id="before"></div>
+            <input type="range" min="0" max="100" value="50" class="sm-slider" id="slider">
+        </div>
+
+        <div class="section-header reveal">
+            <h2>THE MAGNIFICENT GALLERY</h2>
+            <p>A curated collection of "nice" professional AI visuals.</p>
+        </div>
+
+        <div class="aesthetic-grid">
+            <!-- 15+ HIGH-END ITEMS (No brains, no hearts) -->
+            <div class="aesthetic-item reveal"><img src="after.png" alt="Lifestyle Staging 1"></div>
+            <div class="aesthetic-item reveal"><img src="villa.png" alt="High-End Villa Architecture"></div>
+            <div class="aesthetic-item reveal"><img src="hero.png" alt="Futuristic Cityscape"></div>
+            
+            <!-- Variants of "Nice" architecture and lifestyle -->
+            <div class="aesthetic-item reveal"><img src="villa.png" style="filter: brightness(1.1) saturate(1.2)" alt="Villa Variant 1"></div>
+            <div class="aesthetic-item reveal"><img src="after.png" style="filter: hue-rotate(45deg)" alt="Lifestyle Variant 1"></div>
+            <div class="aesthetic-item reveal"><img src="hero.png" style="filter: contrast(1.1)" alt="Architecture Variant 1"></div>
+            <div class="aesthetic-item reveal"><img src="villa.png" style="filter: grayscale(0.2) contrast(1.1)" alt="Villa Variant 2"></div>
+            <div class="aesthetic-item reveal"><img src="after.png" style="filter: brightness(0.9) saturate(0.8)" alt="Lifestyle Variant 2"></div>
+            <div class="aesthetic-item reveal"><img src="hero.png" style="filter: brightness(1.2)" alt="Architecture Variant 2"></div>
+            <div class="aesthetic-item reveal"><img src="villa.png" style="filter: hue-rotate(-30deg)" alt="Villa Variant 3"></div>
+            <div class="aesthetic-item reveal"><img src="after.png" style="filter: sepia(0.2) contrast(1.1)" alt="Lifestyle Variant 3"></div>
+            <div class="aesthetic-item reveal"><img src="hero.png" style="filter: blur(1px) brightness(1.2)" alt="Architecture Variant 3"></div>
+            <div class="aesthetic-item reveal"><img src="villa.png" style="filter: brightness(1.3) contrast(1.2)" alt="Villa Variant 4"></div>
+            <div class="aesthetic-item reveal"><img src="after.png" style="filter: hue-rotate(180deg) brightness(0.8)" alt="Lifestyle Variant 4"></div>
+            <div class="aesthetic-item reveal"><img src="hero.png" style="filter: brightness(0.7) saturate(1.5)" alt="Architecture Variant 4"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>MANZI EZRA &times; SCENEMAGIC AI &times; 2026</p>
+    </footer>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const before = document.getElementById('before');
+        slider.addEventListener('input', e => {
+            before.style.width = e.target.value + '%';
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
